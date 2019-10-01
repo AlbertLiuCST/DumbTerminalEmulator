@@ -1,0 +1,5 @@
+﻿  Physical.cpp
+  Session.cpp
+  Generating Code...
+C:\Users\alber\source\repos\Assignment1\Assignment1\Physical.cpp(35,17): warning C4477:  'sprintf_s' : format string '%c' requires an argument of type 'int', but variadic argument 1 has type 'LPCWSTR'
+  Assignment1.vcxproj -> C:\Users\alber\source\repos\Assignment1\Debug\Assignment1.exe
