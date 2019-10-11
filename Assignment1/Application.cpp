@@ -47,7 +47,9 @@ DWORD rThreadId;
 --
 -- PROGRAMMER: Aman Abdulla
 --
--- INTERFACE: int APIENTRY wWinMain
+-- INTERFACE: int APIENTRY wWinMain( HINSTANCE hInstance,
+										
+									
 --
 -- RETURNS: int
 --
@@ -119,6 +121,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
 	case WM_CHAR:	
 		{
+
 		if(connectMode)
 			writeToFile(hWnd, hComm, wParam);
 		break;
@@ -161,6 +164,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				else 
 					connectPort(TEXT("Com3"), hWnd);
 				
+				break;
+			case ID_SCANTAG_SCANFORRECEIVER:
+				scanForReceiver(hWnd);
+				break;
+			case ID_SCANTAG_SCANFORTAGS:
+				startScan(hWnd);
+				break;
+			case ID_SCANTAG_STOPSCANFORTAGS:
 				break;
             case IDM_EXIT:
                 DestroyWindow(hWnd);
@@ -258,3 +269,4 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	return TRUE;
 }
+

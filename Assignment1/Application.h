@@ -11,7 +11,6 @@
 #include <windows.h>
 #include <stdio.h>
 
-
 #define IDM_TX			100
 #define IDM_RX			101
 #define IDM_Port		102
@@ -28,6 +27,10 @@
 #define IDM_COM1		201
 #define IDM_COM2		202
 #define IDM_COM3		203
+
+#define ID_SCANTAG_SCANFORRECEIVER 301
+#define ID_SCANTAG_SCANFORTAGS 302
+#define ID_SCANTAG_STOPSCANFORTAGS 303
 
 extern HANDLE hComm;
 extern BOOL threadActive;

@@ -153,9 +153,12 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Platform.h" />
     <ClInclude Include="Session.h" />
     <ClInclude Include="Physical.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SkyeTekAPI.h" />
+    <ClInclude Include="SkyeTekProtocol.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +172,12 @@
   <ItemGroup>
     <Image Include="Assignment1.ico" />
     <Image Include="small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="stapi.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="stapi.dll" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

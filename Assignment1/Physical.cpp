@@ -2,9 +2,9 @@
 #include <windows.h>
 #include <stdio.h>
 #include "framework.h"
-#include "Physical.h"
 #include "Application.h"
 #include "Session.h"
+#include "Physical.h"
 #include <string>
 
 
@@ -29,16 +29,11 @@
 ----------------------------------------------------------------------------------------------------------------------*/
 void writeToFile(HWND hWnd,HANDLE hComm, WPARAM wParam) {
 	
-	char str[2];
+	char str[2]; 
+	OVERLAPPED ov{ 0 };
 
-	// Convert char to string
-	sprintf_s(str, "%c", LPCWSTR(wParam)); 
-	
-	if (*str == '\x1b') {
-		connectMode = false;
-	}
 	// Writes to File
-	if (!WriteFile(hComm, str, strlen(str), NULL, 0)) {
+	if (!WriteFile(hComm, &wParam, 1, NULL, &ov)) {
 		MessageBox(NULL, TEXT("Couldn't write to port"), NULL, MB_ICONERROR);
 	};
 }
@@ -64,7 +59,7 @@ void writeToFile(HWND hWnd,HANDLE hComm, WPARAM wParam) {
 HANDLE initializeSerialPort(LPCWSTR lpszCommName) {
 
 	HANDLE hComm = CreateFile(lpszCommName, GENERIC_READ | GENERIC_WRITE, 0,
-		NULL, OPEN_EXISTING, 0, NULL);
+		NULL, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, NULL);
 
 	// Error in connecting to Port
 	if (hComm == INVALID_HANDLE_VALUE) {
@@ -116,29 +111,37 @@ HANDLE initializeSerialPort(LPCWSTR lpszCommName) {
 DWORD WINAPI readFromSerial(LPVOID hWnd) {
 	DWORD dwBytesToRead = 1;
 	DWORD dwBytesRead = 0;
+	DWORD dwEvent, dwError;
+	COMSTAT cs;
+	OVERLAPPED ovRead;
+	// Setting an event to handle
+	SetCommMask(hComm,EV_RXCHAR);
 
 	threadActive = true;
 	while (connectMode) {
 		char arr[2] = "";
-
-		//TODO Better error Handling
-		if (!ReadFile(hComm, arr, dwBytesToRead, &dwBytesRead, NULL)) {
-			MessageBox(NULL, TEXT("Issue with reading char from Com port"), NULL, MB_ICONERROR);
-			continue;
-		};
 		
-		// Bytes were read, redraw with new character
-		if (dwBytesRead) {
-			std::string tem(arr);
+		// Waits for the Event
+		if (WaitCommEvent(hComm, &dwEvent, NULL)) {
+				if (!ReadFile(hComm, arr, dwBytesToRead, &dwBytesRead,0)) {
+					MessageBox(NULL, TEXT("Issue with reading char from Com port"), NULL, MB_ICONERROR);
+					continue;
+				} else {
+					if (dwBytesRead) {
+						std::string tem(arr);
 
-			if (*arr == '\b' && charHistory.size() != 0) 
-				charHistory.pop_back();
-			else 
-				charHistory.push_back(tem);
+						if (*arr == '\b' && charHistory->size() != 0)
+							charHistory->pop_back();
+						else
+							charHistory->push_back(tem);
 
-			Draw((HWND)hWnd, charHistory);
-	
+						Draw((HWND)hWnd, *charHistory);
+
+					}
+				}
+			
 		}
+
 		PurgeComm(hComm, PURGE_RXCLEAR);
 	}
 	threadActive = false;
