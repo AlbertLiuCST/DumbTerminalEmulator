@@ -132,15 +132,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             // Parse the menu selections:
             switch (wmId)
             {
-			case ID_COM1:
-				configPort(hWnd,TEXT("Com1"));
-				break;
-			case ID_COM2:
-				configPort(hWnd, TEXT("Com2"));
-				break;
-			case ID_COM3:
-				configPort(hWnd, TEXT("Com3"));
-				break;
 			case ID_CONNECT_COM1:
 
 				if (connectMode) 

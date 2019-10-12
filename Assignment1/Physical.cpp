@@ -29,11 +29,10 @@
 ----------------------------------------------------------------------------------------------------------------------*/
 void writeToFile(HWND hWnd,HANDLE hComm, WPARAM wParam) {
 	
-	char str[2]; 
 	OVERLAPPED ov{ 0 };
 
 	// Writes to File
-	if (!WriteFile(hComm, &wParam, 1, NULL, &ov)) {
+	if (WriteFile(hComm, &wParam, 1, NULL, &ov)) {
 		MessageBox(NULL, TEXT("Couldn't write to port"), NULL, MB_ICONERROR);
 	};
 }
@@ -56,7 +55,7 @@ void writeToFile(HWND hWnd,HANDLE hComm, WPARAM wParam) {
 -- NOTES:
 -- Initializes serial port
 ----------------------------------------------------------------------------------------------------------------------*/
-HANDLE initializeSerialPort(LPCWSTR lpszCommName) {
+HANDLE initializeSerialPort(LPCWSTR lpszCommName,HWND hWnd) {
 
 	HANDLE hComm = CreateFile(lpszCommName, GENERIC_READ | GENERIC_WRITE, 0,
 		NULL, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, NULL);
@@ -68,14 +67,17 @@ HANDLE initializeSerialPort(LPCWSTR lpszCommName) {
 	}
 	SetupComm(hComm, 1000, 1000);
 	
-	DCB dcb;
-	dcb.BaudRate = 2400;
-	dcb.StopBits = 1;
-	dcb.Parity = 0;
 
-	if (SetCommState(hComm, &dcb)) 
-		MessageBox(NULL, TEXT("Failed to CreateFile"), TEXT(""), MB_OK);
-	
+	COMMCONFIG	cc;
+
+	// Kills any active threads and turns Connect mode off
+	if (threadActive)
+		connectMode = false;
+
+	cc.dwSize = sizeof(COMMCONFIG);
+	GetCommConfig(hComm, &cc, &cc.dwSize);
+	CommConfigDialog(lpszCommName, hWnd, &cc);
+	SetCommState(hComm, &cc.dcb);
 
 	COMMTIMEOUTS timeouts;
 	timeouts.ReadIntervalTimeout = 5; // in milliseconds
@@ -113,30 +115,36 @@ DWORD WINAPI readFromSerial(LPVOID hWnd) {
 	DWORD dwBytesRead = 0;
 	DWORD dwEvent, dwError;
 	COMSTAT cs;
-	OVERLAPPED ovRead;
-	// Setting an event to handle
-	SetCommMask(hComm,EV_RXCHAR);
+	OVERLAPPED ovRead{ 0 };
 
+	if (!SetCommMask(hComm, EV_RXCHAR)) {
+		MessageBox(NULL, (LPCWSTR)"SetCommMask failed.", (LPCWSTR)"Error", MB_OK);
+	}
+	std::vector<std::string> charList;
 	threadActive = true;
 	while (connectMode) {
 		char arr[2] = "";
 		
 		// Waits for the Event
-		if (WaitCommEvent(hComm, &dwEvent, NULL)) {
-				if (!ReadFile(hComm, arr, dwBytesToRead, &dwBytesRead,0)) {
-					MessageBox(NULL, TEXT("Issue with reading char from Com port"), NULL, MB_ICONERROR);
-					continue;
-				} else {
-					if (dwBytesRead) {
-						std::string tem(arr);
+		if (WaitCommEvent(hComm, &dwEvent, 0)) {
+				ClearCommError(hComm, &dwError, &cs);
+				if ((dwEvent & EV_RXCHAR) && cs.cbInQue) {
+					if (ReadFile(hComm, arr, dwBytesToRead, &dwBytesRead, &ovRead)) {
+						MessageBox(NULL, TEXT("Issue with reading char from Com port"), NULL, MB_ICONERROR);
+						continue;
+					}
+					else {
+						if (cs.cbInQue) {
+							std::string tem(arr);
 
-						if (*arr == '\b' && charHistory->size() != 0)
-							charHistory->pop_back();
-						else
-							charHistory->push_back(tem);
+							if (*arr == '\b' && charList.size() != 0)
+								charList.pop_back();
+							else
+								charList.push_back(tem);
 
-						Draw((HWND)hWnd, *charHistory);
+							Draw((HWND)hWnd, charList);
 
+						}
 					}
 				}
 			

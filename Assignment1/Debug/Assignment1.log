@@ -1,33 +1,40 @@
 ﻿  Application.cpp
-C:\Users\alber\source\repos\Assignment1\Assignment1\Application.h(31,1): warning C4005:  'ID_SCANTAG_SCANFORRECEIVER': macro redefinition
-C:\Users\alber\source\repos\Assignment1\Assignment1\resource.h(43): message :  see previous definition of 'ID_SCANTAG_SCANFORRECEIVER'
-C:\Users\alber\source\repos\Assignment1\Assignment1\Application.h(32,1): warning C4005:  'ID_SCANTAG_SCANFORTAGS': macro redefinition
-C:\Users\alber\source\repos\Assignment1\Assignment1\resource.h(40): message :  see previous definition of 'ID_SCANTAG_SCANFORTAGS'
-C:\Users\alber\source\repos\Assignment1\Assignment1\Application.h(33,1): warning C4005:  'ID_SCANTAG_STOPSCANFORTAGS': macro redefinition
-C:\Users\alber\source\repos\Assignment1\Assignment1\resource.h(45): message :  see previous definition of 'ID_SCANTAG_STOPSCANFORTAGS'
-C:\Users\alber\source\repos\Assignment1\Assignment1\resource.h(40,1): warning C4005:  'ID_SCANTAG_SCANFORTAGS': macro redefinition
-C:\Users\alber\source\repos\Assignment1\Assignment1\Application.h(32): message :  see previous definition of 'ID_SCANTAG_SCANFORTAGS'
-C:\Users\alber\source\repos\Assignment1\Assignment1\resource.h(43,1): warning C4005:  'ID_SCANTAG_SCANFORRECEIVER': macro redefinition
-C:\Users\alber\source\repos\Assignment1\Assignment1\Application.h(31): message :  see previous definition of 'ID_SCANTAG_SCANFORRECEIVER'
-C:\Users\alber\source\repos\Assignment1\Assignment1\resource.h(45,1): warning C4005:  'ID_SCANTAG_STOPSCANFORTAGS': macro redefinition
-C:\Users\alber\source\repos\Assignment1\Assignment1\Application.h(33): message :  see previous definition of 'ID_SCANTAG_STOPSCANFORTAGS'
+C:\Users\Robo\source\repos\Assignment1\Application.h(31,1): warning C4005: 'ID_SCANTAG_SCANFORRECEIVER': macro redefinition
+C:\Users\Robo\source\repos\Assignment1\resource.h(43): message : see previous definition of 'ID_SCANTAG_SCANFORRECEIVER'
+C:\Users\Robo\source\repos\Assignment1\Application.h(32,1): warning C4005: 'ID_SCANTAG_SCANFORTAGS': macro redefinition
+C:\Users\Robo\source\repos\Assignment1\resource.h(40): message : see previous definition of 'ID_SCANTAG_SCANFORTAGS'
+C:\Users\Robo\source\repos\Assignment1\Application.h(33,1): warning C4005: 'ID_SCANTAG_STOPSCANFORTAGS': macro redefinition
+C:\Users\Robo\source\repos\Assignment1\resource.h(45): message : see previous definition of 'ID_SCANTAG_STOPSCANFORTAGS'
+C:\Users\Robo\source\repos\Assignment1\resource.h(40,1): warning C4005: 'ID_SCANTAG_SCANFORTAGS': macro redefinition
+C:\Users\Robo\source\repos\Assignment1\Application.h(32): message : see previous definition of 'ID_SCANTAG_SCANFORTAGS'
+C:\Users\Robo\source\repos\Assignment1\resource.h(43,1): warning C4005: 'ID_SCANTAG_SCANFORRECEIVER': macro redefinition
+C:\Users\Robo\source\repos\Assignment1\Application.h(31): message : see previous definition of 'ID_SCANTAG_SCANFORRECEIVER'
+C:\Users\Robo\source\repos\Assignment1\resource.h(45,1): warning C4005: 'ID_SCANTAG_STOPSCANFORTAGS': macro redefinition
+C:\Users\Robo\source\repos\Assignment1\Application.h(33): message : see previous definition of 'ID_SCANTAG_STOPSCANFORTAGS'
+  Physical.cpp
+C:\Users\Robo\source\repos\Assignment1\Application.cpp(119,6): warning C4101: 'hdc': unreferenced local variable
+C:\Users\Robo\source\repos\Assignment1\Application.h(31,1): warning C4005: 'ID_SCANTAG_SCANFORRECEIVER': macro redefinition
+C:\Users\Robo\source\repos\Assignment1\resource.h(43): message : see previous definition of 'ID_SCANTAG_SCANFORRECEIVER'
+C:\Users\Robo\source\repos\Assignment1\Application.h(32,1): warning C4005: 'ID_SCANTAG_SCANFORTAGS': macro redefinition
+C:\Users\Robo\source\repos\Assignment1\resource.h(40): message : see previous definition of 'ID_SCANTAG_SCANFORTAGS'
+C:\Users\Robo\source\repos\Assignment1\Application.h(33,1): warning C4005: 'ID_SCANTAG_STOPSCANFORTAGS': macro redefinition
   Session.cpp
-C:\Users\alber\source\repos\Assignment1\Assignment1\Application.cpp(119,6): warning C4101:  'hdc': unreferenced local variable
-C:\Users\alber\source\repos\Assignment1\Assignment1\Application.h(31,1): warning C4005:  'ID_SCANTAG_SCANFORRECEIVER': macro redefinition
-C:\Users\alber\source\repos\Assignment1\Assignment1\resource.h(43): message :  see previous definition of 'ID_SCANTAG_SCANFORRECEIVER'
-C:\Users\alber\source\repos\Assignment1\Assignment1\Application.h(32,1): warning C4005:  'ID_SCANTAG_SCANFORTAGS': macro redefinition
-C:\Users\alber\source\repos\Assignment1\Assignment1\resource.h(40): message :  see previous definition of 'ID_SCANTAG_SCANFORTAGS'
-C:\Users\alber\source\repos\Assignment1\Assignment1\Application.h(33,1): warning C4005:  'ID_SCANTAG_STOPSCANFORTAGS': macro redefinition
-C:\Users\alber\source\repos\Assignment1\Assignment1\resource.h(45): message :  see previous definition of 'ID_SCANTAG_STOPSCANFORTAGS'
-C:\Users\alber\source\repos\Assignment1\Assignment1\Session.cpp(187,11): warning C4244:  'argument': conversion from 'TCHAR' to 'const _Elem', possible loss of data
-C:\Users\alber\source\repos\Assignment1\Assignment1\Session.cpp(187,11): warning C4244:         with
-C:\Users\alber\source\repos\Assignment1\Assignment1\Session.cpp(187,11): warning C4244:         [
-C:\Users\alber\source\repos\Assignment1\Assignment1\Session.cpp(187,11): warning C4244:             _Elem=char
-C:\Users\alber\source\repos\Assignment1\Assignment1\Session.cpp(187,11): warning C4244:         ]
+C:\Users\Robo\source\repos\Assignment1\resource.h(45): message : see previous definition of 'ID_SCANTAG_STOPSCANFORTAGS'
+C:\Users\Robo\source\repos\Assignment1\Application.h(31,1): warning C4005: 'ID_SCANTAG_SCANFORRECEIVER': macro redefinition
+C:\Users\Robo\source\repos\Assignment1\resource.h(43): message : see previous definition of 'ID_SCANTAG_SCANFORRECEIVER'
+C:\Users\Robo\source\repos\Assignment1\Application.h(32,1): warning C4005: 'ID_SCANTAG_SCANFORTAGS': macro redefinition
+C:\Users\Robo\source\repos\Assignment1\resource.h(40): message : see previous definition of 'ID_SCANTAG_SCANFORTAGS'
+C:\Users\Robo\source\repos\Assignment1\Application.h(33,1): warning C4005: 'ID_SCANTAG_STOPSCANFORTAGS': macro redefinition
+C:\Users\Robo\source\repos\Assignment1\resource.h(45): message : see previous definition of 'ID_SCANTAG_STOPSCANFORTAGS'
+C:\Users\Robo\source\repos\Assignment1\Session.cpp(149,11): warning C4244: 'argument': conversion from 'TCHAR' to 'const _Elem', possible loss of data
+C:\Users\Robo\source\repos\Assignment1\Session.cpp(149,11): warning C4244:         with
+C:\Users\Robo\source\repos\Assignment1\Session.cpp(149,11): warning C4244:         [
+C:\Users\Robo\source\repos\Assignment1\Session.cpp(149,11): warning C4244:             _Elem=char
+C:\Users\Robo\source\repos\Assignment1\Session.cpp(149,11): warning C4244:         ]
   Generating Code...
-C:\Users\alber\source\repos\Assignment1\Assignment1\Session.cpp(193,13): warning C4244:  'argument': conversion from 'TCHAR' to 'const _Elem', possible loss of data
-C:\Users\alber\source\repos\Assignment1\Assignment1\Session.cpp(193,13): warning C4244:         with
-C:\Users\alber\source\repos\Assignment1\Assignment1\Session.cpp(193,13): warning C4244:         [
-C:\Users\alber\source\repos\Assignment1\Assignment1\Session.cpp(193,13): warning C4244:             _Elem=char
-C:\Users\alber\source\repos\Assignment1\Assignment1\Session.cpp(193,13): warning C4244:         ]
-  Assignment1.vcxproj -> C:\Users\alber\source\repos\Assignment1\Debug\Assignment1.exe
+C:\Users\Robo\source\repos\Assignment1\Session.cpp(155,13): warning C4244: 'argument': conversion from 'TCHAR' to 'const _Elem', possible loss of data
+C:\Users\Robo\source\repos\Assignment1\Session.cpp(155,13): warning C4244:         with
+C:\Users\Robo\source\repos\Assignment1\Session.cpp(155,13): warning C4244:         [
+C:\Users\Robo\source\repos\Assignment1\Session.cpp(155,13): warning C4244:             _Elem=char
+C:\Users\Robo\source\repos\Assignment1\Session.cpp(155,13): warning C4244:         ]
+  Assignment1.vcxproj -> C:\Users\Robo\source\repos\Debug\Assignment1.exe

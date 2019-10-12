@@ -4,7 +4,7 @@
 #include <string>
 
 
-HANDLE initializeSerialPort(LPCWSTR lpszCommName);
+HANDLE initializeSerialPort(LPCWSTR lpszCommName, HWND hWnd);
 
 void writeToFile(HWND hWnd, HANDLE hComm, WPARAM wParam);
 DWORD WINAPI readFromSerial(LPVOID hWnd);

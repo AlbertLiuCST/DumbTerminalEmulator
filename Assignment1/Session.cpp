@@ -109,48 +109,10 @@ void connectPort(LPCWSTR lpszCommName, HWND hWnd)
 {
 	connectMode = true;
 	CloseHandle(hComm);
-	hComm = initializeSerialPort(lpszCommName);
+	hComm = initializeSerialPort(lpszCommName,hWnd);
 	if (!threadActive) {
 		rThread = CreateThread(NULL, 0, readFromSerial, (LPVOID)hWnd, 0, &rThreadId);
 	}
-}
-/*------------------------------------------------------------------------------------------------------------------
--- FUNCTION: configPort
---
--- DATE: September 30, 2019
---
--- REVISIONS: September 30,2019
---
--- DESIGNER: Albert Liu
---
--- PROGRAMMER: Albert Liu
---
--- INTERFACE: void configPort(HWND hWnd,LPCWSTR com)
---								HWND hWnd - Current Window
---								LPCWSTR - Com port name to open
---
--- RETURNS: void
---
--- NOTES:
--- Kills connect mode and enables comm config. 
-----------------------------------------------------------------------------------------------------------------------*/
-void configPort(HWND hWnd,LPCWSTR com)
-{
-	COMMCONFIG	cc;
-	CloseHandle(hComm);
-
-	// Kills any active threads and turns Connect mode off
-	if (threadActive) 
-		connectMode = false;
-
-	//TODO - Handle Better if port is invalid
-	if ((hComm = initializeSerialPort(com)) == INVALID_HANDLE_VALUE) 
-		return;
-	
-	cc.dwSize = sizeof(COMMCONFIG);
-	GetCommConfig(hComm, &cc, &cc.dwSize);
-	CommConfigDialog(com, hWnd, &cc);
-	SetCommState(hComm, &cc.dcb);
 }
 void startScan(HWND hWnd) {
 

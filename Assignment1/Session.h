@@ -12,7 +12,6 @@ void scanForReceiver(HWND hWnd);
 void startScan(HWND hWnd);
 void startScanForTags(LPVOID hWnd);
 void connectPort(LPCWSTR lpszCommName, HWND hWnd);
-void configPort(HWND hWnd, LPCWSTR com);
 unsigned char SelectLoopCallback(LPSKYETEK_TAG lpTag, void* user);
 
 void drawTag(LPSKYETEK_TAG lpTag, HWND hWnd, std::vector<std::string> *vec);
