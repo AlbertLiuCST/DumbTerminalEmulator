@@ -1,4 +1,28 @@
-
+/*------------------------------------------------------------------------------------------------------------------
+-- SOURCE FILE: Session.c - Contains all the terminal logic which takes place inside the session layer.
+--
+-- PROGRAM: Dumb Terminal Emulator
+--
+-- FUNCTIONS:
+-- void Draw(HWND hwnd, std::vector<std::string> charHistory)
+-- void scanForReceiver(HWND hWnd)
+-- void connectPort(LPCWSTR lpszCommName, HWND hWnd)
+-- void startScan(HWND hWnd)
+-- void startScanForTags(LPVOID hWnd)
+-- unsigned char SelectLoopCallback(LPSKYETEK_TAG lpTag, void* user)
+-- void drawTag(LPSKYETEK_TAG lpTag, HWND hWnd, std::vector<std::string> *vec)
+--
+-- DATE: 2019-10-01
+--
+-- REVISIONS: (Date and Description)
+--
+-- DESIGNER: Albert Liu
+--
+-- PROGRAMMER: Albert Liu
+--
+-- NOTES:
+-- This file contains functions pertaining to 
+----------------------------------------------------------------------------------------------------------------------*/
 #include <windows.h>
 #include <stdio.h>
 #include "framework.h"
@@ -19,6 +43,26 @@ unsigned int numDevices;
 unsigned int numReaders;
 
 
+/*------------------------------------------------------------------------------------------------------------------
+-- FUNCTION: Draw
+--
+-- DATE: September 30, 2019
+--
+-- REVISIONS: September 30,2019
+--
+-- DESIGNER: 
+--
+-- PROGRAMMER: 
+--
+-- INTERFACE: Draw(HWND hwnd, std::vector<std::string> charHistory)
+--									hwnd:			
+--									charHistory:	
+--
+-- RETURNS:		VOID
+--
+-- NOTES:
+-- 
+----------------------------------------------------------------------------------------------------------------------*/
 void Draw(HWND hwnd, std::vector<std::string> charHistory) {
 	TEXTMETRIC tm;
 	HDC hdc = GetDC(hwnd);
@@ -57,6 +101,25 @@ void Draw(HWND hwnd, std::vector<std::string> charHistory) {
 	ReleaseDC(hwnd, hdc); // Release device context
 }
 
+/*------------------------------------------------------------------------------------------------------------------
+-- FUNCTION: scanForReceiver
+--
+-- DATE: September 30, 2019
+--
+-- REVISIONS: September 30,2019
+--
+-- DESIGNER:
+--
+-- PROGRAMMER:
+--
+-- INTERFACE: scanForReceiver(HWND hWnd)
+--									hwnd:									
+--
+-- RETURNS:		VOID
+--
+-- NOTES:
+--
+----------------------------------------------------------------------------------------------------------------------*/
 void scanForReceiver(HWND hWnd)
 {
 	HMENU menu = GetMenu(hWnd);
@@ -97,7 +160,7 @@ void scanForReceiver(HWND hWnd)
 -- PROGRAMMER: Albert Liu
 --
 -- INTERFACE: void connectPort(LPCWSTR lpszCommName, HWND hWnd)
---								LPCWSTR lpszCommName - Comm port to initalize 
+--								LPCWSTR lpszCommName - Comm port to initialize 
 --								HWND - Current Window 
 --
 -- RETURNS: void
@@ -114,6 +177,26 @@ void connectPort(LPCWSTR lpszCommName, HWND hWnd)
 		rThread = CreateThread(NULL, 0, readFromSerial, (LPVOID)hWnd, 0, &rThreadId);
 	}
 }
+
+/*------------------------------------------------------------------------------------------------------------------
+-- FUNCTION: startScan
+--
+-- DATE: September 30, 2019
+--
+-- REVISIONS: September 30,2019
+--
+-- DESIGNER: Albert Liu
+--
+-- PROGRAMMER: Albert Liu
+--
+-- INTERFACE: startScan(HWND hWnd)
+--									hwnd:									
+--
+-- RETURNS:		VOID
+--
+-- NOTES:
+--
+----------------------------------------------------------------------------------------------------------------------*/
 void startScan(HWND hWnd) {
 
 	connectMode = true;
@@ -121,6 +204,26 @@ void startScan(HWND hWnd) {
 		rThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)startScanForTags, (LPVOID)hWnd, 0, &rThreadId);
 	
 }
+
+/*------------------------------------------------------------------------------------------------------------------
+-- FUNCTION: startScanForTags
+--
+-- DATE: September 30, 2019
+--
+-- REVISIONS: September 30,2019
+--
+-- DESIGNER: Albert Liu
+--
+-- PROGRAMMER: Albert Liu
+--
+-- INTERFACE: void startScanForTags(LPVOID hWnd)
+--									hwnd:
+--
+-- RETURNS:		VOID
+--
+-- NOTES:
+--
+----------------------------------------------------------------------------------------------------------------------*/
 void startScanForTags(LPVOID hWnd)
 {
 	std::vector<std::string> vect;
@@ -131,6 +234,27 @@ void startScanForTags(LPVOID hWnd)
 	scanTags = true;
 	st = SkyeTek_SelectTags(readers[0], AUTO_DETECT, SelectLoopCallback, 0, 1, (void*) &te);
 }
+
+/*------------------------------------------------------------------------------------------------------------------
+-- FUNCTION: SelectLoopCallback
+--
+-- DATE: September 30, 2019
+--
+-- REVISIONS: September 30,2019
+--
+-- DESIGNER: 
+--
+-- PROGRAMMER: 
+--
+-- INTERFACE: unsigned char SelectLoopCallback(LPSKYETEK_TAG lpTag, void* user)
+--									lpTag:
+--									user:
+--
+-- RETURNS:		VOID
+--
+-- NOTES:
+--
+----------------------------------------------------------------------------------------------------------------------*/
 unsigned char SelectLoopCallback(LPSKYETEK_TAG lpTag, void* user)
 {
 		if (scanTags)
@@ -140,6 +264,27 @@ unsigned char SelectLoopCallback(LPSKYETEK_TAG lpTag, void* user)
 		return(scanTags);
 }
 
+/*------------------------------------------------------------------------------------------------------------------
+-- FUNCTION: drawTag
+--
+-- DATE: September 30, 2019
+--
+-- REVISIONS: September 30,2019
+--
+-- DESIGNER: Albert Liu
+--
+-- PROGRAMMER: Albert Liu
+--
+-- INTERFACE: void drawTag(LPSKYETEK_TAG lpTag, HWND hWnd, std::vector<std::string> *vec)
+--									lpTag:	
+--									hWnd:	
+--									*vec:	
+--
+-- RETURNS:		VOID
+--
+-- NOTES:
+--
+----------------------------------------------------------------------------------------------------------------------*/
 void drawTag(LPSKYETEK_TAG lpTag, HWND hWnd, std::vector<std::string> *vec) {
 
 	std::string tagId;

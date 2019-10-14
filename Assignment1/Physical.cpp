@@ -1,4 +1,26 @@
-
+/*------------------------------------------------------------------------------------------------------------------
+-- SOURCE FILE: Physical.cpp - Contains all the terminal logic which takes place inside the physical layer.
+--
+-- PROGRAM: Dumb Terminal Emulator
+--
+-- FUNCTIONS:
+-- writeToFile(HWND hWnd,HANDLE hComm, WPARAM wParam)
+-- HANDLE initializeSerialPort(LPCWSTR lpszCommName,HWND hWnd)
+-- DWORD WINAPI readFromSerial(LPVOID hWnd)
+--
+--
+-- DATE: 2019-10-01
+--
+-- REVISIONS: (Date and Description)
+--
+-- DESIGNER: Albert Liu
+--
+-- PROGRAMMER: Albert Liu
+--
+-- NOTES:
+-- This file was designed to hold the general windows desktop application
+-- runtime procedures.
+----------------------------------------------------------------------------------------------------------------------*/
 #include <windows.h>
 #include <stdio.h>
 #include "framework.h"
@@ -21,11 +43,14 @@
 -- PROGRAMMER: Albert Liu
 --
 -- INTERFACE: void writeToFile(HWND hWnd,HANDLE hComm, WPARAM wParam)
+--								hWnd:	A unique handle for the current window.
+--								hComm:	A handle to the specified connected comm port.
+--								wParam: contains the HIWORD (notification message) and LOWORD (control id which sent the message)
 --
 -- RETURNS: void
 --
 -- NOTES: 
--- Writes to Comm port passing in WParam
+-- This function is responsible for writing data to the comm port for information transferal.
 ----------------------------------------------------------------------------------------------------------------------*/
 void writeToFile(HWND hWnd,HANDLE hComm, WPARAM wParam) {
 	
@@ -49,11 +74,15 @@ void writeToFile(HWND hWnd,HANDLE hComm, WPARAM wParam) {
 -- PROGRAMMER: Albert Liu
 --
 -- INTERFACE: HANDLE initializeSerialPort(LPCWSTR lpszCommName)
+--											lpszCommName:	A long pointer to a zero terminated string containing the name
+--															of the serial port to initialize.
 --
--- RETURNS: Handle when when serial port is successfully started
+-- RETURNS: hComm: Handle for the specified serial port once it is successfully started.
 --
 -- NOTES:
--- Initializes serial port
+-- This function initializes a serial port. It does this by using CreateFile to return a handle to the specified comm port
+-- and then using SetupComm to initialize its settings. Upon successful port initialization, all threads are killed and Connect
+-- mode is turned off. Comm timeouts are then set to wait until bytes are available to read.
 ----------------------------------------------------------------------------------------------------------------------*/
 HANDLE initializeSerialPort(LPCWSTR lpszCommName,HWND hWnd) {
 
@@ -105,10 +134,11 @@ HANDLE initializeSerialPort(LPCWSTR lpszCommName,HWND hWnd) {
 --
 -- INTERFACE: DWORD WINAPI readFromSerial(LPVOID hWnd)
 --
--- RETURNS: 0 when thread ends
+-- RETURNS: 0: Indicates the end of the serial port reading thread.
 --
 -- NOTES:
--- Function is thrown into thread and constantly reads from port
+-- This function contains the core logic that runs during "Connect Mode". It allows the application
+-- to read data that enters through the 'connected' comm port and display it on screen.
 ----------------------------------------------------------------------------------------------------------------------*/
 DWORD WINAPI readFromSerial(LPVOID hWnd) {
 	DWORD dwBytesToRead = 1;
@@ -117,11 +147,15 @@ DWORD WINAPI readFromSerial(LPVOID hWnd) {
 	COMSTAT cs;
 	OVERLAPPED ovRead{ 0 };
 
+	// Tries specify a set of events to be monitored for the communication device. If it can't,
+	// a message box indicated the error is displayed.
 	if (!SetCommMask(hComm, EV_RXCHAR)) {
 		MessageBox(NULL, (LPCWSTR)"SetCommMask failed.", (LPCWSTR)"Error", MB_OK);
 	}
 	std::vector<std::string> charList;
 	threadActive = true;
+
+	// The loop containing all the port reading logic.
 	while (connectMode) {
 		char arr[2] = "";
 		
@@ -149,7 +183,7 @@ DWORD WINAPI readFromSerial(LPVOID hWnd) {
 				}
 			
 		}
-
+		// Discards all chars from the output/input buffer of the comm port.
 		PurgeComm(hComm, PURGE_RXCLEAR);
 	}
 	threadActive = false;
