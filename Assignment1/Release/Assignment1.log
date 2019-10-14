@@ -1,8 +1,0 @@
-﻿  Physical.cpp
-C:\Users\Robo\source\repos\Assignment1\Application.h(31,1): warning C4005: 'ID_SCANTAG_SCANFORRECEIVER': macro redefinition
-C:\Users\Robo\source\repos\Assignment1\resource.h(43): message : see previous definition of 'ID_SCANTAG_SCANFORRECEIVER'
-C:\Users\Robo\source\repos\Assignment1\Application.h(32,1): warning C4005: 'ID_SCANTAG_SCANFORTAGS': macro redefinition
-C:\Users\Robo\source\repos\Assignment1\resource.h(40): message : see previous definition of 'ID_SCANTAG_SCANFORTAGS'
-C:\Users\Robo\source\repos\Assignment1\Application.h(33,1): warning C4005: 'ID_SCANTAG_STOPSCANFORTAGS': macro redefinition
-C:\Users\Robo\source\repos\Assignment1\resource.h(45): message : see previous definition of 'ID_SCANTAG_STOPSCANFORTAGS'
-LINK : fatal error LNK1104: cannot open file 'C:\Users\Robo\source\repos\Release\Assignment1.exe'
